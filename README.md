@@ -13,3 +13,4 @@ How to use:
 	    > Do Not Enter The File Path As A String with quotation mark!
 	    > This program only works for the GNU GCC C compiler but can be modified to work with clang/other compilers.
 	    > It is advised to have the executable\output folder ready and not use the program to generate dir.  
+     	> If you running on a system running linux kernel/ Mac OS then upadate the main.py file by omitting the .exe part in line 18.

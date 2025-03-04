@@ -1,11 +1,26 @@
 import os
 import subprocess as sb
+import sys
+#print(sys.argv)
+#Check weather the input is to be done via the command argument or via the terminal
+if  len(sys.argv) == 1:
+    print(f"Example of folder path: C:\\User\\Documents\\Folder_Name or navigate from the location you opened this file using .\\")
+    print("Please Do not enter the paths as strings.")
+    source_path: str = input("Enter the location of the folder which contains the C files: \n")
+    print('*'*10)
+    executable_path: str = input("Enter the location of the folder where you want output the exe files:\n")
+elif  len(sys.argv) > 3:
+    print("Usage: cbash <input directory>(optional) <output directory>")
+else:
+    if len(sys.argv) == 2:
+        source_path = '.\\'
+        executable_path = sys.argv[1]
+    else:
+        source_path = sys.argv[1]
+        executable_path = sys.argv[2]
 
-print(f"Example of folder path: C:\\User\\Documents\\Folder_Name or navigate from the location you opened this file using .\\")
-print("Please Do not enter the paths as strings.")
-source_path: str = input("Enter the location of the folder which contains the C files: \n")
-print('*'*10)
-executable_path: str = input("Enter the location of the folder where you want output the exe files:\n")
+        
+
 
 def generate_executable(exe_path: list | str) -> bool:
     '''
@@ -14,13 +29,14 @@ def generate_executable(exe_path: list | str) -> bool:
     all_compiled = True
     output_name = [file.split('.')[0] for file in exe_path]
     combined_file = zip(exe_path, output_name)
+    print("Beginning Compilation..\n", '#'*50, sep='\n')
     for input, output in combined_file:
         command = f"gcc \"{source_path}\\{input}\" -o \"{executable_path}\\{output}.exe\""
         #print(command, input, output)
         process = sb.run(command, shell=True, capture_output=True, text=True)
         if process.returncode != 0:
              print(f"Failed to Compile {input} due to:\n{process.stderr}")
-             print("\n\n\n", "#"*50, sep='\n')
+             print("\n", "#"*50, sep='\n')
              all_compiled = False
     return all_compiled
     
